@@ -3,108 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us | GeevaCare</title>
+  <title>About Us — GeevaCare</title>
+
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* 🌸 Floating lotus background animation */
     body {
-      position: relative;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(120deg, #fff7ed, #e6fffb);
+      color: #1e293b;
       overflow-x: hidden;
     }
-    .lotus {
-      position: fixed;
-      bottom: -80px;
-      width: 100px;
-      opacity: 0.3;
-      animation: floatUp 15s linear infinite;
-    }
-    .lotus:nth-child(1) { left: 10%; animation-delay: 0s; width: 80px; }
-    .lotus:nth-child(2) { left: 40%; animation-delay: 5s; width: 100px; }
-    .lotus:nth-child(3) { left: 70%; animation-delay: 10s; width: 90px; }
 
-    @keyframes floatUp {
-      0% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
-      50% { opacity: 0.6; }
-      100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
-    }
-
-    /* ✨ Fade-in animation */
-    .fade-in {
+    /* fade + slide animation */
+    .fade-up {
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 1.5s ease forwards;
+      transform: translateY(15px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* soft hover on cards */
+    .hover-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    /* floating lotus soft effect */
+    .lotus {
+      position: absolute;
+      opacity: 0.08;
+      animation: float 12s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(3deg); }
     }
   </style>
 </head>
-<body class="bg-gradient-to-b from-white to-teal-50 text-gray-800 relative overflow-hidden">
+<body>
 
-  <!-- 🌸 Floating lotus flowers -->
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Pink_lotus_flower.png" class="lotus" alt="lotus">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Pink_lotus_flower.png" class="lotus" alt="lotus">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Pink_lotus_flower.png" class="lotus" alt="lotus">
+  <!-- floating lotus background -->
+  <div class="lotus top-10 left-10 text-amber-400 text-7xl">🌸</div>
+  <div class="lotus bottom-12 right-16 text-teal-400 text-6xl">🌸</div>
 
-  <!-- 🌿 Navbar -->
-  <nav class="flex justify-between items-center p-4 bg-white shadow-md fixed w-full z-50 fade-in">
-    <div class="flex items-center space-x-2">
-      <img src="images/logo.png" alt="GeevaCare Logo" class="w-10 h-10">
-      <span class="text-2xl font-bold text-teal-600">GeevaCare</span>
-    </div>
-    <ul class="flex space-x-6 text-gray-700 font-medium">
-      <li><a href="index.html" class="hover:text-teal-500 transition">Home</a></li>
-      <li><a href="about.html" class="text-teal-600 font-semibold">About</a></li>
-      <li><a href="services.html" class="hover:text-teal-500 transition">Services</a></li>
-      <li><a href="jobs.html" class="hover:text-teal-500 transition">Caregiver Jobs</a></li>
-      <li><a href="contact.html" class="hover:text-teal-500 transition">Contact</a></li>
-    </ul>
-  </nav>
-  <div class="mt-20"></div>
+  <!-- Header -->
+  <header class="flex items-center justify-between px-6 py-4 bg-white/80 backdrop-blur-md shadow-md">
+    <a href="index.html" class="text-xl font-semibold text-amber-700">GeevaCare</a>
+    <nav class="flex gap-6 text-gray-700 text-sm">
+      <a href="index.html" class="hover:text-amber-700">Home</a>
+      <a href="#mission" class="hover:text-amber-700">Mission</a>
+      <a href="#team" class="hover:text-amber-700">Team</a>
+      <a href="#vision" class="hover:text-amber-700">Vision</a>
+    </nav>
+  </header>
 
-  <!-- 💫 About Section -->
-  <section class="max-w-5xl mx-auto text-center py-16 px-4 fade-in">
-    <h1 class="text-4xl font-bold text-teal-700 mb-4">About GeevaCare</h1>
-    <p class="text-lg text-gray-600 leading-relaxed">
-      At <strong>GeevaCare</strong>, we believe that compassionate care is more than a service—it’s a connection.  
-      Our mission is to provide reliable, trusted, and heartfelt care to patients and elders, while empowering caregivers  
-      with opportunities to grow their careers.
+  <!-- HERO -->
+  <section class="max-w-5xl mx-auto px-6 py-16 text-center fade-up" data-animate>
+    <h1 class="text-4xl font-bold text-amber-800 mb-4">About GeevaCare</h1>
+    <p class="text-gray-700 text-lg max-w-2xl mx-auto">
+      We’re a compassionate healthcare platform built on the belief that care should be personal, respectful, and accessible to everyone.
     </p>
-    <div class="mt-10 flex justify-center fade-in">
-      <img src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?auto=format&fit=crop&w=1200&q=80"
-           alt="Caregiver helping elderly person" 
-           class="rounded-3xl shadow-xl w-full md:w-2/3 object-cover transition-transform duration-500 hover:scale-105">
-    </div>
   </section>
 
-  <!-- 💚 Mission Section -->
-  <section class="bg-teal-600 text-white py-16 px-6 fade-in">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-3xl font-semibold mb-4">Our Mission</h2>
-      <p class="text-lg leading-relaxed">
-        To deliver trusted home healthcare that promotes dignity, comfort, and healing — while creating 
-        meaningful employment opportunities for caregivers, nursing students, and healthcare workers.
+  <!-- MISSION -->
+  <section id="mission" class="max-w-6xl mx-auto px-6 py-12 grid md:grid-cols-2 gap-8 items-center fade-up" data-animate>
+    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=80" alt="Nurse helping patient stand" class="rounded-3xl shadow-lg hover-card" />
+    <div>
+      <h2 class="text-2xl font-semibold text-amber-800 mb-3">Our Mission</h2>
+      <p class="text-gray-700 leading-relaxed">
+        At GeevaCare, our mission is to bring healing and compassion home. We connect families with certified, trusted caregivers who bring professionalism and empathy to every doorstep.
       </p>
     </div>
   </section>
 
-  <!-- 🌼 CTA Section -->
-  <section class="py-16 text-center bg-gradient-to-b from-white to-saffron-50 fade-in">
-    <h2 class="text-3xl font-semibold text-teal-700 mb-6">Join Our Journey of Care</h2>
-    <p class="text-gray-600 mb-8">Whether you’re looking for compassionate care or a meaningful career — GeevaCare is here for you.</p>
-    <div class="flex justify-center space-x-4">
-      <a href="services.html" class="border border-teal-600 text-teal-600 px-6 py-3 rounded-xl hover:bg-teal-600 hover:text-white transition shadow-md">Our Services</a>
-      <a href="jobs.html" class="border border-orange-500 text-orange-600 px-6 py-3 rounded-xl hover:bg-orange-500 hover:text-white transition shadow-md">Join as Caregiver</a>
+  <!-- TEAM -->
+  <section id="team" class="max-w-6xl mx-auto px-6 py-12 text-center fade-up" data-animate>
+    <h2 class="text-2xl font-semibold text-amber-800 mb-6">Meet Our Team</h2>
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-2xl p-6 hover-card">
+        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=400&q=80" class="rounded-full w-28 h-28 mx-auto mb-4 object-cover" alt="Doctor"/>
+        <h4 class="font-semibold text-amber-700">Dr. Meera Patel</h4>
+        <p class="text-sm text-gray-600">Founder & Chief Medical Advisor</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 hover-card">
+        <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=400&q=80" class="rounded-full w-28 h-28 mx-auto mb-4 object-cover" alt="Caregiver"/>
+        <h4 class="font-semibold text-amber-700">Arjun Verma</h4>
+        <p class="text-sm text-gray-600">Operations & Outreach</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 hover-card">
+        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80" class="rounded-full w-28 h-28 mx-auto mb-4 object-cover" alt="Nurse"/>
+        <h4 class="font-semibold text-amber-700">Nisha Reddy</h4>
+        <p class="text-sm text-gray-600">Lead Nurse Coordinator</p>
+      </div>
     </div>
   </section>
 
-  <!-- 🌿 Footer -->
-  <footer class="bg-teal-700 text-white py-6 text-center fade-in">
-    <p>© 2025 GeevaCare. All rights reserved.</p>
+  <!-- VISION -->
+  <section id="vision" class="max-w-6xl mx-auto px-6 py-12 fade-up" data-animate>
+    <div class="bg-white/80 backdrop-blur-md rounded-3xl p-8 shadow-md">
+      <h2 class="text-2xl font-semibold text-amber-800 mb-4">Our Vision</h2>
+      <p class="text-gray-700 leading-relaxed">
+        We envision a future where every home has access to quality healthcare without boundaries — combining technology, empathy, and community spirit to redefine patient care across India.
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="mt-12 bg-amber-800 text-white py-6 text-center text-sm">
+    © <span id="year"></span> GeevaCare — The care belongs to you.
   </footer>
 
+  <!-- JS: animations -->
+  <script>
+    document.getElementById("year").innerText = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll("[data-animate]").forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
