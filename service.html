@@ -7,77 +7,105 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    .fade-up { opacity: 0; transform: translateY(15px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up { opacity: 0; transform: translateY(20px); transition: all 0.8s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
+
 <body class="bg-gray-50 text-gray-800">
 
   <!-- Navbar -->
   <nav class="flex justify-between items-center py-4 px-8 bg-white shadow-md fixed top-0 left-0 w-full z-50">
     <div class="text-2xl font-bold text-teal-700">GeevaCare</div>
-    <ul class="flex space-x-6 text-gray-700">
+    <ul class="flex space-x-6 text-gray-700 font-medium">
       <li><a href="index.html" class="hover:text-teal-600">Home</a></li>
       <li><a href="about.html" class="hover:text-teal-600">About</a></li>
-      <li><a href="services.html" class="text-teal-600 font-semibold">Services</a></li>
+      <li><a href="service.html" class="text-teal-600 font-semibold">Services</a></li>
       <li><a href="contact.html" class="hover:text-teal-600">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- Spacer to offset fixed navbar -->
-  <div class="pt-24"></div>
-
   <!-- Services Section -->
-  <section id="services" class="py-16">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold text-amber-700 mb-10">Our Services</h2>
-      <div class="grid md:grid-cols-2 gap-10">
+  <section class="pt-28 pb-20 px-6 lg:px-16 text-center">
+    <h2 class="text-4xl font-bold text-teal-700 mb-4 fade-up">Our Services</h2>
+    <p class="text-gray-600 mb-12 fade-up">Care at Your Doorstep — Reliable, Affordable & Compassionate</p>
 
-        <!-- Service 1 -->
-        <div class="p-8 bg-white shadow-lg rounded-2xl transition-transform transform hover:-translate-y-2 hover:shadow-2xl fade-up" data-animate>
-          <img src="https://cdn.pixabay.com/photo/2018/04/26/21/16/nurse-3354370_1280.jpg" alt="Home Sample Collection" class="rounded-xl w-full h-64 object-cover mb-6">
-          <h3 class="text-2xl font-semibold mb-4 text-gray-800">🏠 Home Visits for Sample Collection</h3>
-          <p class="text-gray-600 mb-3">
-            We offer convenient home visits for <strong>blood, saliva, stool, and urine</strong> sample collection.
-            Tests include <strong>sugar, CBC, cholesterol</strong> and many more — hygienic, fast, and accurate.
-          </p>
-          <p class="text-gray-500 italic">“Your health, our priority — right at your doorstep.”</p>
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Service 1 -->
+      <div class="fade-up bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+        <div class="text-5xl mb-3">🩸</div>
+        <h3 class="text-xl font-semibold mb-2">CBC Blood Test</h3>
+        <p class="text-gray-600 mb-3">Comprehensive blood count test to monitor your overall health.</p>
+        <p class="font-bold text-teal-700 mb-3">₹500</p>
+        <button class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">Book Now</button>
+      </div>
 
-        <!-- Service 2 -->
-        <div class="p-8 bg-white shadow-lg rounded-2xl transition-transform transform hover:-translate-y-2 hover:shadow-2xl fade-up" data-animate>
-          <img src="https://cdn.pixabay.com/photo/2016/11/29/03/37/adult-1867537_1280.jpg" alt="Home Care Service" class="rounded-xl w-full h-64 object-cover mb-6">
-          <h3 class="text-2xl font-semibold mb-4 text-gray-800">💖 Home Care Services</h3>
-          <p class="text-gray-600 mb-3">
-            Hire our <strong>trained caregivers</strong> on daily, weekly, or monthly basis.
-            Perfect for elderly care, post-surgery recovery, or chronic illness support.
-          </p>
-          <p class="text-gray-500 italic">“Compassionate care — every single day.”</p>
-        </div>
+      <!-- Service 2 -->
+      <div class="fade-up bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+        <div class="text-5xl mb-3">💉</div>
+        <h3 class="text-xl font-semibold mb-2">Blood Sugar Test</h3>
+        <p class="text-gray-600 mb-3">Monitor your glucose level conveniently from home.</p>
+        <p class="font-bold text-teal-700 mb-3">₹800</p>
+        <button class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">Book Now</button>
+      </div>
 
+      <!-- Service 3 -->
+      <div class="fade-up bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+        <div class="text-5xl mb-3">🧫</div>
+        <h3 class="text-xl font-semibold mb-2">HCG Beta Test</h3>
+        <p class="text-gray-600 mb-3">Accurate pregnancy hormone detection at your doorstep.</p>
+        <p class="font-bold text-teal-700 mb-3">₹550</p>
+        <button class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">Book Now</button>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="fade-up bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+        <div class="text-5xl mb-3">🚽</div>
+        <h3 class="text-xl font-semibold mb-2">Urine Sample Test</h3>
+        <p class="text-gray-600 mb-3">Urine sample collection and testing for multiple health checks.</p>
+        <p class="font-bold text-teal-700 mb-3">₹800</p>
+        <button class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">Book Now</button>
+      </div>
+
+      <!-- Service 5 -->
+      <div class="fade-up bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+        <div class="text-5xl mb-3">👩‍⚕️</div>
+        <h3 class="text-xl font-semibold mb-2">Daily Home Care</h3>
+        <p class="text-gray-600 mb-3">Trained caregivers for your daily home care needs.</p>
+        <p class="font-bold text-teal-700 mb-3">₹1,500 / day</p>
+        <button class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">Book Now</button>
+      </div>
+
+      <!-- Service 6 -->
+      <div class="fade-up bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+        <div class="text-5xl mb-3">👨‍⚕️</div>
+        <h3 class="text-xl font-semibold mb-2">Weekly Home Care</h3>
+        <p class="text-gray-600 mb-3">Personalized care plans for your loved ones, weekly basis.</p>
+        <p class="font-bold text-teal-700 mb-3">₹8,000 / week</p>
+        <button class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">Book Now</button>
+      </div>
+
+      <!-- Service 7 -->
+      <div class="fade-up bg-white p-6 rounded-2xl shadow-md hover:shadow-lg transition">
+        <div class="text-5xl mb-3">❤️</div>
+        <h3 class="text-xl font-semibold mb-2">Monthly Home Care</h3>
+        <p class="text-gray-600 mb-3">Complete care service package for a full month.</p>
+        <p class="font-bold text-teal-700 mb-3">₹30,000 / month</p>
+        <button class="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700">Book Now</button>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-teal-700 text-white py-6 text-center mt-16">
-    <p>&copy; 2025 GeevaCare. All rights reserved.</p>
-  </footer>
-
-  <!-- Animation Script -->
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const observer = new IntersectionObserver((entries, obs) => {
+    // Fade-up animation script
+    const elements = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('[data-animate]').forEach(el => observer.observe(el));
-  });
+    }, { threshold: 0.2 });
+    elements.forEach(el => observer.observe(el));
   </script>
+
 </body>
 </html>
