@@ -107,37 +107,47 @@
 
   <!-- Firebase Authentication -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCEeDroQiN7cm3kTmxaYIszxFy8EvbVLhA",
-      authDomain: "geevacare-portal.firebaseapp.com",
-      projectId: "geevacare-portal",
-      storageBucket: "geevacare-portal.appspot.com",
-      messagingSenderId: "707238773805",
-      appId: "1:707238773805:web:9e2e3dbfefeddd6e0d87e3"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyCEeDroQiN7cm3kTmxaYIszxFy8EvbVLhA",
+    authDomain: "geevacare-portal.firebaseapp.com",
+    projectId: "geevacare-portal",
+    storageBucket: "geevacare-portal.appspot.com",
+    messagingSenderId: "707238773805",
+    appId: "1:707238773805:web:9e2e3dbfefeddd6e0d87e3"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-    // Show logged-in user's email
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        document.getElementById("userEmail").textContent = `Welcome, ${user.email}`;
-      } else {
+  const userEmailDiv = document.getElementById("userEmail");
+  userEmailDiv.textContent = "Checking login status...";
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is logged in
+      userEmailDiv.textContent = `Welcome, ${user.email}`;
+      document.querySelector(".dashboard").style.display = "block";
+    } else {
+      // Wait 1 second before redirect to prevent flicker
+      setTimeout(() => {
         window.location.href = "caregiver.login.html";
-      }
-    });
+      }, 1000);
+    }
+  });
 
-    // Logout function
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      signOut(auth).then(() => {
-        alert("You have been logged out.");
-        window.location.href = "caregiver.login.html";
-      });
+  // Hide dashboard initially
+  document.querySelector(".dashboard").style.display = "none";
+
+  // Logout button
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    signOut(auth).then(() => {
+      alert("You have been logged out.");
+      window.location.href = "caregiver.login.html";
     });
-  </script>
+  });
+</script>
 </body>
 </html>
