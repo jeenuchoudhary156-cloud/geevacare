@@ -187,7 +187,7 @@
   <!-- Firebase scripts and app logic -->
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+ import { getAuth, onAuthStateChanged, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
   import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
   import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
@@ -419,81 +419,79 @@
     modalMsg.textContent = "Saving...";
 
     // Get form inputs
-    const fullName = document.getElementById("editName").value;
-    const address = document.getElementById("editAddress").value;
-    const fileInput = document.getElementById("editPhoto");
-    let photoURL = null;
+    const fullName = editName.value || LOCAL.name || "";
+    const address = editAddress.value || LOCAL.address || "";
+    const fileInput = editPhoto;
+    let photoURL = LOCAL.photoURL || null;
 
-    // Upload photo if selected
-    if (fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-      const storageRef = ref(storage, `caregivers/${uid}/profile.jpg`);
-      await uploadBytes(storageRef, file);
-      photoURL = await getDownloadURL(storageRef);
+    // Upload photo if selected (LOCAL.photoFile or fileInput.files)
+    const selectedFile = LOCAL.photoFile || (fileInput.files && fileInput.files[0]);
+    if (selectedFile) {
+      const sref = ref(storage, `caregivers/${uid}/profile.jpg`);
+      await uploadBytes(sref, selectedFile);
+      photoURL = await getDownloadURL(sref);
+      LOCAL.photoURL = photoURL;
     }
 
-    // Prepare update data
-    const updateData = {
-      name: fullName,
-      address: address,
-      email: user.email,
-      ...(photoURL ? { photo: photoURL } : {}),
+    // Update local state
+    LOCAL.name = fullName;
+    LOCAL.address = address;
+
+    // Prepare doc payload (merge)
+    const payload = {
+      name: LOCAL.name,
+      address: LOCAL.address,
+      photo: photoURL || null,
+      patients: LOCAL.patients || [],
+      appointments: LOCAL.appointments || [],
+      notifications: LOCAL.notifications || [],
+      earnings: LOCAL.earnings || 0,
+      rating: LOCAL.rating || 0,
+      updatedAt: new Date()
     };
 
-    // Save to Firestore
-    await setDoc(doc(db, "caregivers", uid), updateData, { merge: true });
+    // Write to Firestore
+    const caregiverDocRef = doc(db, "caregivers", uid);
+    await setDoc(caregiverDocRef, payload, { merge: true });
 
-    // Update Firebase Auth profile
-    await user.updateProfile({
-      displayName: fullName,
-      photoURL: photoURL || user.photoURL,
-    });
+    // Update Firebase Auth profile (if available)
+    try {
+      if (updateProfile) {
+        await updateProfile(user, {
+          displayName: LOCAL.name,
+          photoURL: photoURL || user.photoURL || null
+        });
+      }
+    } catch (upErr) {
+      console.warn("Could not update auth profile:", upErr.message);
+      // not fatal — continue
+    }
 
-    alert("✅ Profile updated successfully!");
-    location.reload();
-  } catch (error) {
-    console.error("Save error:", error);
-    alert("Save failed: " + error.message);
+    // success UI update
+    modalMsg.textContent = "Saved ✓";
+    saveSuccess.classList.add("show");
+    setTimeout(() => saveSuccess.classList.remove("show"), 2400);
+    closeEditModal();
+    // refresh UI values
+    profileName.textContent = LOCAL.name.split(" ")[0] || LOCAL.name;
+    ddName.textContent = LOCAL.name;
+    ddAddress.textContent = LOCAL.address || "Kota, Rajasthan";
+    sidebarName.textContent = LOCAL.name;
+    sidebarAddress.textContent = LOCAL.address || "Kota, Rajasthan";
+    welcomeName.textContent = LOCAL.name;
+    avatarSmall.querySelector("img").src = LOCAL.photoURL || "https://via.placeholder.com/80?text=G";
+    avatarLarge.src = LOCAL.photoURL || "https://via.placeholder.com/120?text=G";
+    sidebarAvatar.src = LOCAL.photoURL || "https://via.placeholder.com/120?text=G";
+
+  } catch (err) {
+    console.error("Save error:", err);
+    alert("Save failed: " + (err.message || err));
+    modalMsg.textContent = "Save failed: " + (err.message || "");
   } finally {
     saveAllBtn.disabled = false;
     saveProfileBtn.disabled = false;
-    modalMsg.textContent = "";
+    setTimeout(() => { modalMsg.textContent = ""; }, 1500);
   }
-}
-
-        // Prepare doc payload
-        const payload = {
-          name: LOCAL.name,
-          address: LOCAL.address,
-          photo: LOCAL.photoURL,
-          patients: LOCAL.patients,
-          appointments: LOCAL.appointments,
-          notifications: LOCAL.notifications,
-          earnings: LOCAL.earnings || 0,
-          rating: LOCAL.rating || 0,
-          updatedAt: new Date()
-        };
-
-        // Write to Firestore (set document)
-        const caregiverDocRef = doc(db, 'caregivers', uid);
-        await setDoc(caregiverDocRef, payload, { merge: true });
-
-        // success UI
-        modalMsg.textContent = 'Saved ✓';
-        saveSuccess.classList.add('show');
-        setTimeout(()=>saveSuccess.classList.remove('show'), 2400);
-        closeEditModal();
-      } catch (err) {
-        console.error(err);
-        modalMsg.textContent = 'Save failed: ' + err.message;
-        alert('Save error: ' + err.message);
-      } finally {
-        saveAllBtn.disabled = false;
-        saveProfileBtn.disabled = false;
-        setTimeout(()=>{ modalMsg.textContent = ''; }, 2000);
-      }
-    }
-
     function openEditModal(){
       editModal.classList.add('show');
       editModal.setAttribute('aria-hidden','false');
