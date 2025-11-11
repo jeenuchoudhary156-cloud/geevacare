@@ -407,23 +407,59 @@
     saveProfileBtn.addEventListener('click', saveAllChanges);
     saveAllBtn.addEventListener('click', saveAllChanges);
 
-    async function saveAllChanges(){
-      saveAllBtn.disabled = true;
-      saveProfileBtn.disabled = true;
-      modalMsg.textContent = 'Saving...';
-      try {
-      const user = auth.currentUser;
-       if (!user) throw new Error('Not logged in');
-       const uid = user.uid;
+    async function saveAllChanges() {
+  try {
+    const user = auth.currentUser;
+    if (!user) throw new Error("Not logged in.");
+    const uid = user.uid;
 
-        // upload photo if new file selected
-        if(LOCAL.photoFile){
-          const path = `caregivers/${uid}/profile.jpg`;
-          const sref = ref(storage, path);
-          await uploadBytes(sref, LOCAL.photoFile);
-          const url = await getDownloadURL(sref);
-          LOCAL.photoURL = url;
-        }
+    // Disable buttons and show saving text
+    saveAllBtn.disabled = true;
+    saveProfileBtn.disabled = true;
+    modalMsg.textContent = "Saving...";
+
+    // Get form inputs
+    const fullName = document.getElementById("editName").value;
+    const address = document.getElementById("editAddress").value;
+    const fileInput = document.getElementById("editPhoto");
+    let photoURL = null;
+
+    // Upload photo if selected
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const storageRef = ref(storage, `caregivers/${uid}/profile.jpg`);
+      await uploadBytes(storageRef, file);
+      photoURL = await getDownloadURL(storageRef);
+    }
+
+    // Prepare update data
+    const updateData = {
+      name: fullName,
+      address: address,
+      email: user.email,
+      ...(photoURL ? { photo: photoURL } : {}),
+    };
+
+    // Save to Firestore
+    await setDoc(doc(db, "caregivers", uid), updateData, { merge: true });
+
+    // Update Firebase Auth profile
+    await user.updateProfile({
+      displayName: fullName,
+      photoURL: photoURL || user.photoURL,
+    });
+
+    alert("✅ Profile updated successfully!");
+    location.reload();
+  } catch (error) {
+    console.error("Save error:", error);
+    alert("Save failed: " + error.message);
+  } finally {
+    saveAllBtn.disabled = false;
+    saveProfileBtn.disabled = false;
+    modalMsg.textContent = "";
+  }
+}
 
         // Prepare doc payload
         const payload = {
