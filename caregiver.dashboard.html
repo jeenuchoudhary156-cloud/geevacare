@@ -4,47 +4,140 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Caregiver Dashboard | GeevaCare</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+
+    .dashboard {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .card h3 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .value {
+      font-size: 1.8em;
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    #logoutBtn {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 30px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #logoutBtn:hover {
+      background-color: #b02a37;
+    }
+
+    #userEmail {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.1em;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <header>GeevaCare Caregiver Dashboard</header>
+
+  <div id="userEmail">Loading user...</div>
+
+  <div class="dashboard">
+    <div class="card-container">
+      <div class="card">
+        <h3>Total Earnings</h3>
+        <div class="value">₹5,200</div>
+      </div>
+      <div class="card">
+        <h3>Completed Jobs</h3>
+        <div class="value">12</div>
+      </div>
+      <div class="card">
+        <h3>Active Assignments</h3>
+        <div class="value">3</div>
+      </div>
+      <div class="card">
+        <h3>Rating</h3>
+        <div class="value">4.8⭐</div>
+      </div>
+    </div>
+
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <!-- Firebase Authentication -->
   <script type="module">
-    // Import Firebase
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-    // Your Firebase configuration (same as login page)
     const firebaseConfig = {
-  apiKey: "AIzaSyCEeDroQiN7cm3kTJmxayIszxFgY8eVLhA",
-  authDomain: "geevacare-portal.firebaseapp.com",
-  projectId: "geevacare-portal",
-  storageBucket: "geevacare-portal.firebasestorage.app",
-  messagingSenderId: "124439449847",
-  appId: "1:124439449847:web:cee18563ce832289ca03f2",
-  measurementId: "G-50SM8Z1BPJ"
-};
+      apiKey: "AIzaSyCEeDroQiN7cm3kTmxaYIszxFy8EvbVLhA",
+      authDomain: "geevacare-portal.firebaseapp.com",
+      projectId: "geevacare-portal",
+      storageBucket: "geevacare-portal.appspot.com",
+      messagingSenderId: "707238773805",
+      appId: "1:707238773805:web:9e2e3dbfefeddd6e0d87e3"
+    };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // Check login state
+    // Show logged-in user's email
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        document.getElementById("welcome").textContent = `Welcome, ${user.email}`;
+        document.getElementById("userEmail").textContent = `Welcome, ${user.email}`;
       } else {
         window.location.href = "caregiver.login.html";
       }
     });
 
-    // Logout button
-    function logout() {
+    // Logout function
+    document.getElementById("logoutBtn").addEventListener("click", () => {
       signOut(auth).then(() => {
-        alert("Logged out!");
+        alert("You have been logged out.");
         window.location.href = "caregiver.login.html";
       });
-    }
-
-    window.logout = logout;
+    });
   </script>
-</head>
-<body style="font-family: Arial; text-align: center; margin-top: 100px;">
-  <h2 id="welcome">Loading...</h2>
-  <button onclick="logout()" style="padding:10px 20px;">Logout</button>
 </body>
 </html>
