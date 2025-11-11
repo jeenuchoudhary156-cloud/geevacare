@@ -87,60 +87,49 @@
     <h3>Loading dashboard...</h3>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { 
-      getAuth, 
-      onAuthStateChanged, 
-      signOut, 
-      setPersistence, 
-      browserLocalPersistence 
-    } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+  import { 
+    getAuth, 
+    onAuthStateChanged, 
+    signOut 
+  } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-    const firebaseConfig = {
-  apiKey: "AIzaSyCEeDroQiN7cm3kTmxaYIszxFy8EvbVLhA",
-  authDomain: "geevacare-portal.firebaseapp.com",
-  projectId: "geevacare-portal",
-  storageBucket: "geevacare-portal.appspot.com",
-  messagingSenderId: "124439449847",
-  appId: "1:124439449847:web:cee18563ce832289c03f2f",
-  measurementId: "G-50SM8Z1BPJ"
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyCEeDroQiN7cm3kTmxaYIszxFy8EvbVLhA",
+    authDomain: "geevacare-portal.firebaseapp.com",
+    projectId: "geevacare-portal",
+    storageBucket: "geevacare-portal.appspot.com",
+    messagingSenderId: "124439449847",
+    appId: "1:124439449847:web:cee18563ce832289c03f2f",
+    measurementId: "G-50SM8Z1BPJ"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-    // 🔐 Keep user logged in across sessions
-    setPersistence(auth, browserLocalPersistence)
-      .then(() => {
-        onAuthStateChanged(auth, (user) => {
-          const dashboard = document.querySelector(".dashboard");
-          const userEmailDiv = document.getElementById("userEmail");
-          const loading = document.getElementById("loading");
+  // 👇 Check if user is logged in
+  onAuthStateChanged(auth, (user) => {
+    const dashboard = document.querySelector(".dashboard");
+    const userEmailDiv = document.getElementById("userEmail");
+    const loading = document.getElementById("loading");
 
-          if (user) {
-            userEmailDiv.textContent = `Welcome, ${user.email}`;
-            dashboard.style.display = "block";
-            loading.style.display = "none";
-          } else {
-            loading.innerHTML = "<h3>Redirecting to login...</h3>";
-            setTimeout(() => {
-              window.location.href = "caregiver.login.html";
-            }, 1200);
-          }
-        });
-      })
-      .catch((error) => {
-        console.error("Persistence error:", error.message);
-      });
+    if (user) {
+      userEmailDiv.textContent = `Welcome, ${user.email}`;
+      dashboard.style.display = "block";
+      loading.style.display = "none";
+    } else {
+      window.location.href = "caregiver.login.html";
+    }
+  });
 
-    // 🔓 Logout button
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      signOut(auth).then(() => {
-        alert("You have been logged out.");
-        window.location.href = "caregiver.login.html";
-      });
+  // 👇 Logout button
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    signOut(auth).then(() => {
+      alert("You have been logged out.");
+      window.location.href = "caregiver.login.html";
     });
-  </script>
+  });
+</script>
 </body>
 </html>
