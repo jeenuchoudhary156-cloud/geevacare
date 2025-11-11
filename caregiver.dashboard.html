@@ -1,140 +1,76 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Caregiver Dashboard | GeevaCare</title>
-
-  <!-- Google Font -->
+  <title>Caregiver Dashboard — GeevaCare</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
   <style>
     :root{
-      --mint-100: #f0f9f4;
-      --mint-200: #d8f3dd;
-      --mint-500: #63d471;
-      --mint-600: #47bf56;
-      --card-bg: #ffffff;
-      --muted: #6b7280;
+      --mint-100:#f0f9f4; --mint-500:#63d471; --muted:#6b7280;
     }
-    *{box-sizing:border-box;margin:0;padding:0;}
-    body{
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(180deg, var(--mint-100), #f6fcf6);
-      color:#0f172a;
-    }
-
-    header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:10px 20px;
-      background:linear-gradient(90deg, rgba(155,231,166,0.95), rgba(99,212,113,0.95));
-      box-shadow:0 4px 10px rgba(0,0,0,0.1);
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .brand .logo-placeholder{
-      width:44px;height:44px;border-radius:10px;background:#fff;
-      display:flex;align-items:center;justify-content:center;
-      font-weight:700;color:var(--mint-600);
-    }
-    .brand h1{font-size:18px;color:#06381f;font-weight:700;}
-
-    .header-actions{display:flex;align-items:center;gap:15px;}
-    .btn-logout{
-      background:#fff;border:none;padding:8px 14px;border-radius:20px;
-      font-weight:600;color:#06381f;cursor:pointer;
-      transition:0.2s;box-shadow:0 2px 5px rgba(0,0,0,0.1);
-    }
-    .btn-logout:hover{background:var(--mint-200);}
-
-    .profile{position:relative;}
-    .profile-toggle{
-      display:flex;align-items:center;gap:8px;cursor:pointer;
-      background:#fff;padding:6px 10px;border-radius:20px;
-      box-shadow:0 2px 6px rgba(0,0,0,0.1);
-    }
-    .avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;}
-    .avatar img{width:100%;height:100%;object-fit:cover;}
-    .profile-name{font-weight:600;font-size:14px;color:#06381f;}
-
-    .dropdown{
-      position:absolute;top:50px;right:0;width:260px;
-      background:#fff;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.1);
-      display:none;padding:15px;
-    }
-    .dropdown.show{display:block;}
-    .dropdown .info{display:flex;gap:10px;align-items:center;}
-    .dropdown .info .meta{font-size:13px;}
-    .dropdown .actions{margin-top:10px;display:flex;gap:8px;}
-    .btn-primary{
-      background:var(--mint-500);color:white;padding:8px 10px;
-      border:none;border-radius:8px;cursor:pointer;font-weight:600;
-    }
-    .btn-secondary{
-      background:#f3faf4;border:1px solid rgba(0,0,0,0.05);
-      color:#06421f;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:600;
-    }
-
-    main{max-width:1100px;margin:30px auto;padding:0 18px;}
-    .grid{display:grid;grid-template-columns:1fr 340px;gap:20px;}
-    .card{
-      background:#fff;padding:16px;border-radius:14px;
-      border:1px solid rgba(0,0,0,0.05);box-shadow:0 8px 20px rgba(0,0,0,0.05);
-    }
-    .card h3{font-size:16px;margin-bottom:8px;}
-    .card p{font-size:13px;color:var(--muted);}
-    .list{margin-top:10px;list-style:none;display:flex;flex-direction:column;gap:8px;}
-    .list li{display:flex;justify-content:space-between;align-items:center;
-      background:var(--mint-100);padding:8px 10px;border-radius:8px;font-size:14px;}
-    .card-footer{margin-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);}
-
-    .summary{
-      background:#fff;padding:14px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.05);
-    }
-    .summary h4{margin-bottom:8px;}
-    .summary .meta{color:var(--muted);font-size:13px;}
-    .stat{display:flex;justify-content:space-between;align-items:center;padding:12px;margin-top:10px;border-radius:10px;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,0.05);}
-    .value{font-weight:700;font-size:18px;}
-
-    @media(max-width:960px){
-      .grid{grid-template-columns:1fr;}
-      .profile-name{display:none;}
-    }
+    *{box-sizing:border-box}
+    body{font-family:"Poppins",system-ui,Arial; background:linear-gradient(180deg,var(--mint-100),#f6fcf6); color:#0f172a; margin:0}
+    header{display:flex;justify-content:space-between;align-items:center;padding:10px 20px;background:linear-gradient(90deg,#9be7a6,#63d471);box-shadow:0 4px 10px rgba(0,0,0,0.08)}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:44px;height:44px;background:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#2a6a36}
+    .brand h1{margin:0;font-size:18px;color:#06381f}
+    .header-actions{display:flex;align-items:center;gap:12px}
+    .btn{padding:8px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
+    .btn-logout{background:#fff;color:#06381f}
+    .profile-toggle{display:flex;align-items:center;gap:10px;background:#fff;padding:6px 10px;border-radius:999px;cursor:pointer}
+    .avatar{width:40px;height:40px;border-radius:50%;overflow:hidden}
+    .avatar img{width:100%;height:100%;object-fit:cover}
+    main{max-width:1100px;margin:26px auto;padding:0 16px}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:18px}
+    .card{background:#fff;padding:16px;border-radius:12px;border:1px solid rgba(0,0,0,0.04);box-shadow:0 8px 20px rgba(2,6,23,0.04);margin-bottom:12px}
+    h2,h3{margin:0 0 8px 0}
+    p.small{color:var(--muted);margin:0;font-size:13px}
+    .list{list-style:none;padding:0;margin:8px 0 0 0;display:flex;flex-direction:column;gap:8px}
+    .list li{display:flex;justify-content:space-between;align-items:center;padding:8px;border-radius:8px;background:var(--mint-100)}
+    .card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted);font-size:13px}
+    .btn-primary{background:var(--mint-500);color:#fff;border-radius:8px;padding:8px 10px;border:none;cursor:pointer;font-weight:700}
+    .btn-sec{background:#f3faf4;border-radius:8px;padding:8px 10px;border:1px solid rgba(0,0,0,0.04);cursor:pointer;font-weight:600}
+    .summary .avatar-lg{width:72px;height:72px;border-radius:12px;overflow:hidden}
+    .muted{color:var(--muted)}
+    .input, textarea{width:100%;padding:8px;border-radius:8px;border:1px solid #e6eef0;margin-top:6px}
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.36);z-index:80;opacity:0;pointer-events:none;transition:opacity .18s}
+    .modal.show{opacity:1;pointer-events:auto}
+    .modal-card{background:#fff;padding:18px;border-radius:12px;width:420px;max-width:94%}
+    .success{background:#e6ffef;color:#066a33;padding:10px;border-radius:8px;margin-top:10px;display:none}
+    .success.show{display:block}
+    @media(max-width:960px){.grid{grid-template-columns:1fr}.profile-name{display:none}}
   </style>
 </head>
 <body>
 
   <header>
     <div class="brand">
-      <div class="logo-placeholder">GC</div>
-      <h1>GeevaCare</h1>
+      <div class="logo">GC</div>
+      <div><h1>GeevaCare</h1><div class="muted" style="font-size:12px">the care belongs to you.</div></div>
     </div>
 
     <div class="header-actions">
-      <button class="btn-logout" id="logoutTop">Logout</button>
+      <button class="btn btn-logout" id="logoutTop">Logout</button>
 
-      <div class="profile" id="profileMenu">
+      <div style="position:relative" id="profileMenu">
         <div class="profile-toggle" id="profileToggle">
-          <div class="avatar"><img id="avatarImg" src="" alt="avatar"></div>
+          <div class="avatar"><img id="avatarSmall" src="https://via.placeholder.com/80?text=G" alt="avatar"/></div>
           <div class="profile-name" id="profileName">Caregiver</div>
         </div>
-        <div class="dropdown" id="profileDropdown">
-          <div class="info">
-            <div class="avatar" style="width:60px;height:60px;"><img id="avatarLarge" src="" alt="avatar"></div>
-            <div class="meta">
-              <div id="ddName" style="font-weight:600;">Name</div>
-              <div id="ddEmail" style="font-size:12px;color:var(--muted);">email@example.com</div>
-              <div id="ddAddress" style="font-size:12px;color:var(--muted);margin-top:4px;">Kota, Rajasthan</div>
+
+        <div id="profileDropdown" style="position:absolute;right:0;top:56px;width:260px;display:none;background:#fff;padding:12px;border-radius:10px;box-shadow:0 12px 30px rgba(0,0,0,0.12)">
+          <div style="display:flex;gap:10px;align-items:center">
+            <div class="avatar" style="width:60px;height:60px"><img id="avatarLarge" src="https://via.placeholder.com/120?text=G" alt=""></div>
+            <div>
+              <div id="ddName" style="font-weight:700">Name</div>
+              <div id="ddEmail" class="muted small">email@example.com</div>
+              <div id="ddAddress" class="muted small" style="margin-top:6px">Kota, Rajasthan</div>
             </div>
           </div>
-          <div class="actions">
-            <button class="btn-primary" id="viewProfileBtn">View Profile</button>
-            <button class="btn-secondary" id="logoutBtn">Logout</button>
+          <div style="margin-top:10px;display:flex;gap:8px">
+            <button class="btn-primary" id="openEditProfile">Edit Profile</button>
+            <button class="btn-sec" id="logoutBtn">Logout</button>
           </div>
         </div>
       </div>
@@ -143,101 +79,119 @@
 
   <main>
     <div class="grid">
-      <div class="left">
+      <div>
         <section class="card">
           <h2>Welcome back, <span id="welcomeName">Caregiver</span></h2>
-          <p>Your daily summary and upcoming updates are here.</p>
+          <p class="small">Here’s your quick dashboard. Make changes and click <strong>Save All Changes</strong>.</p>
         </section>
 
-        <div class="card">
+        <section class="card" id="patientsCard">
           <h3>Assigned Patients</h3>
-          <p>Patients assigned to you</p>
-          <ul class="list">
-            <li><span>Mrs. Anita – 68</span><button class="btn-secondary">View</button></li>
-            <li><span>Mr. Sunil – 74</span><button class="btn-secondary">View</button></li>
-          </ul>
+          <p class="small">Mark as completed to remove.</p>
+          <ul class="list" id="patientsList"></ul>
           <div class="card-footer">
-            <span>Total: 2</span><button class="btn-primary">View All</button>
+            <div id="patientsCount" class="muted">Total: 0</div>
+            <div><button class="btn-primary" id="saveAllBtn">Save All Changes</button></div>
           </div>
-        </div>
+        </section>
 
-        <div class="card">
+        <section class="card" id="apptCard">
           <h3>Upcoming Appointments</h3>
-          <p>Next patient visits</p>
-          <ul class="list">
-            <li><span>10 Nov — 11:00 AM</span><button class="btn-secondary">Details</button></li>
-            <li><span>12 Nov — 03:00 PM</span><button class="btn-secondary">Details</button></li>
-          </ul>
-          <div class="card-footer">
-            <span>Next: 10 Nov — 11:00 AM</span><button class="btn-primary">Calendar</button>
-          </div>
-        </div>
+          <p class="small">Add appointments below.</p>
 
-        <div class="card">
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <input id="apptDate" class="input" type="date"/>
+            <input id="apptTime" class="input" type="time"/>
+            <button class="btn-primary" id="addApptBtn">Add</button>
+          </div>
+
+          <ul class="list" id="appointmentsList" style="margin-top:12px"></ul>
+          <div class="card-footer"><div id="nextAppointment" class="muted">Next: —</div><div></div></div>
+        </section>
+
+        <section class="card" id="notifCard">
           <h3>Notifications</h3>
-          <p>Alerts & messages</p>
-          <ul class="list">
-            <li><span>New sample collection request</span><button class="btn-secondary">Open</button></li>
-            <li><span>Shift schedule updated</span><button class="btn-secondary">Open</button></li>
-          </ul>
-          <div class="card-footer">
-            <span>Unread: 2</span><button class="btn-primary">View All</button>
+          <p class="small">Mark read or delete.</p>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <input id="notifText" class="input" placeholder="Write a note..." />
+            <button class="btn-primary" id="addNotifBtn">Add</button>
           </div>
-        </div>
+          <ul class="list" id="notificationsList" style="margin-top:12px"></ul>
+          <div class="card-footer"><div id="notificationsCount" class="muted">Unread: 0</div></div>
+        </section>
 
-        <div class="card">
+        <section class="card" id="earnCard">
           <h3>Earnings</h3>
-          <p>This month’s earnings</p>
-          <div style="font-size:22px;font-weight:700;margin:8px 0;">₹ 12,500</div>
-          <div class="card-footer">
-            <span>Paid till 5 Nov</span><button class="btn-primary">Details</button>
-          </div>
-        </div>
+          <p class="small">This month</p>
+          <div style="font-size:22px;font-weight:700;margin-top:8px">₹ <span id="earningsValue">0</span></div>
+        </section>
 
-        <div class="card">
+        <section class="card" id="ratingCard">
           <h3>Ratings</h3>
-          <p>Feedback from families</p>
-          <div style="font-size:22px;font-weight:700;margin:8px 0;">4.8 / 5 ⭐</div>
-          <div class="card-footer">
-            <span>54 reviews</span><button class="btn-primary">View</button>
-          </div>
-        </div>
+          <p class="small">Average rating</p>
+          <div style="font-size:22px;font-weight:700;margin-top:8px"><span id="ratingsValue">0</span> ⭐</div>
+        </section>
       </div>
 
-      <div class="right">
-        <div class="summary">
+      <aside>
+        <div class="card summary">
           <h4>Profile Summary</h4>
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div class="avatar" style="width:70px;height:70px;"><img id="sidebarAvatar" src="" alt=""></div>
+          <div style="display:flex;gap:12px;align-items:center;margin-top:8px">
+            <div class="avatar-lg" style="width:72px;height:72px;border-radius:10px;overflow:hidden"><img id="sidebarAvatar" src="https://via.placeholder.com/120?text=G" style="width:100%;height:100%;object-fit:cover"></div>
             <div>
-              <div id="sidebarName" style="font-weight:600;">Name</div>
-              <div id="sidebarEmail" class="meta">email@example.com</div>
-              <div id="sidebarAddress" class="meta">Kota, Rajasthan</div>
+              <div id="sidebarName" style="font-weight:700">Name</div>
+              <div id="sidebarEmail" class="muted">email@example.com</div>
+              <div id="sidebarAddress" class="muted" style="margin-top:6px">Kota, Rajasthan</div>
             </div>
           </div>
-          <div style="margin-top:10px;display:flex;gap:8px;">
-            <button class="btn-primary" style="flex:1;">Edit Profile</button>
-            <button class="btn-secondary" style="flex:1;">My Schedule</button>
+
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button class="btn-primary" id="editProfileBtn" style="flex:1">Edit Profile</button>
+            <button class="btn-sec" id="myScheduleBtn" style="flex:1">My Schedule</button>
           </div>
+
+          <div id="saveSuccess" class="success">Saved successfully ✔</div>
         </div>
 
-        <div class="stat">
-          <div><div style="color:var(--muted);font-size:13px;">This month</div><div class="value">₹ 12,500</div></div>
-          <div style="text-align:right;"><div style="color:var(--muted);font-size:13px;">Completed Jobs</div><div style="font-weight:700;">28</div></div>
+        <div class="card stat">
+          <div><div class="muted small">This month</div><div class="value">₹ <span id="statMonth">0</span></div></div>
+          <div style="text-align:right"><div class="muted small">Completed jobs</div><div style="font-weight:700" id="statJobs">0</div></div>
         </div>
 
-        <div class="stat">
-          <div><div style="color:var(--muted);font-size:13px;">Rating</div><div class="value">4.8 ⭐</div></div>
-          <div style="text-align:right;"><div style="color:var(--muted);font-size:13px;">Alerts</div><div style="font-weight:700;">2</div></div>
+        <div class="card stat">
+          <div><div class="muted small">Rating</div><div class="value"><span id="statRating">0</span> ⭐</div></div>
+          <div style="text-align:right"><div class="muted small">Alerts</div><div style="font-weight:700" id="statAlerts">0</div></div>
         </div>
-      </div>
+      </aside>
     </div>
   </main>
 
+  <!-- Edit Profile Modal -->
+  <div id="editModal" class="modal" aria-hidden="true">
+    <div class="modal-card">
+      <h3>Edit Profile</h3>
+      <label class="muted" style="font-size:13px">Full Name</label>
+      <input id="editName" class="input" type="text" placeholder="Your full name" />
+      <label class="muted" style="font-size:13px;margin-top:8px">Address</label>
+      <input id="editAddress" class="input" type="text" placeholder="City, State" />
+      <label class="muted" style="font-size:13px;margin-top:8px">Profile Photo</label>
+      <input id="editPhoto" class="input" type="file" accept="image/*" />
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="btn-primary" id="saveProfileBtn">Save All Changes</button>
+        <button class="btn-sec" id="cancelProfileBtn">Cancel</button>
+      </div>
+      <div id="modalMsg" class="muted" style="margin-top:8px;font-size:13px"></div>
+    </div>
+  </div>
+
+  <!-- Firebase scripts and app logic -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
+    // ---------- your firebase config ----------
     const firebaseConfig = {
       apiKey: "AIzaSyCEeDroQiN7cm3kTJmxayIszxFgY8eVLhA",
       authDomain: "geevacare-portal.firebaseapp.com",
@@ -248,57 +202,362 @@
       measurementId: "G-50SM8Z1BPJ"
     };
 
+    // init
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
 
+    // UI references
     const profileToggle = document.getElementById('profileToggle');
     const profileDropdown = document.getElementById('profileDropdown');
-    const logoutBtn = document.getElementById('logoutBtn');
-    const logoutTop = document.getElementById('logoutTop');
+    const profileMenu = document.getElementById('profileMenu');
+    const openEditProfile = document.getElementById('openEditProfile');
+    const editProfileBtn = document.getElementById('editProfileBtn');
+    const editModal = document.getElementById('editModal');
+    const cancelProfileBtn = document.getElementById('cancelProfileBtn');
+    const saveProfileBtn = document.getElementById('saveProfileBtn');
+    const saveAllBtn = document.getElementById('saveAllBtn');
 
-    // toggle dropdown
-    profileToggle.addEventListener('click', () => {
-      profileDropdown.classList.toggle('show');
+    const avatarSmall = document.getElementById('avatarSmall');
+    const avatarLarge = document.getElementById('avatarLarge');
+    const sidebarAvatar = document.getElementById('sidebarAvatar');
+    const profileName = document.getElementById('profileName');
+    const ddName = document.getElementById('ddName');
+    const ddEmail = document.getElementById('ddEmail');
+    const ddAddress = document.getElementById('ddAddress');
+    const sidebarName = document.getElementById('sidebarName');
+    const sidebarEmail = document.getElementById('sidebarEmail');
+    const sidebarAddress = document.getElementById('sidebarAddress');
+    const welcomeName = document.getElementById('welcomeName');
+
+    const patientsListEl = document.getElementById('patientsList');
+    const patientsCountEl = document.getElementById('patientsCount');
+    const appointmentsListEl = document.getElementById('appointmentsList');
+    const notificationsListEl = document.getElementById('notificationsList');
+    const notificationsCountEl = document.getElementById('notificationsCount');
+
+    const earningsValueEl = document.getElementById('earningsValue');
+    const ratingsValueEl = document.getElementById('ratingsValue');
+    const statMonth = document.getElementById('statMonth');
+    const statJobs = document.getElementById('statJobs');
+    const statRating = document.getElementById('statRating');
+    const statAlerts = document.getElementById('statAlerts');
+    const saveSuccess = document.getElementById('saveSuccess');
+    const modalMsg = document.getElementById('modalMsg');
+
+    // edit inputs
+    const editName = document.getElementById('editName');
+    const editAddress = document.getElementById('editAddress');
+    const editPhoto = document.getElementById('editPhoto');
+
+    // local state (edits pending until Save All)
+    let LOCAL = {
+      name: null,
+      address: null,
+      photoFile: null,      // File object
+      photoURL: null,       // existing or uploaded url
+      patients: [],
+      appointments: [],
+      notifications: [],
+      earnings: 0,
+      rating: 0,
+      uid: null
+    };
+
+    function showDropdownToggle(){ profileDropdown.style.display = 'block'; }
+    function hideDropdownToggle(){ profileDropdown.style.display = 'none'; }
+
+    profileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
     });
+    document.addEventListener('click', (e) => { if (!profileMenu.contains(e.target)) hideDropdownToggle(); });
 
-    document.addEventListener('click', (e) => {
-      if (!document.getElementById('profileMenu').contains(e.target)) {
-        profileDropdown.classList.remove('show');
+    document.getElementById('logoutBtn').addEventListener('click', () => signOut(auth).then(()=>location.href='caregiver.login.html'));
+    document.getElementById('logoutTop').addEventListener('click', () => signOut(auth).then(()=>location.href='caregiver.login.html'));
+
+    // open modal handlers
+    openEditProfile.addEventListener('click', ()=>openEditModal());
+    editProfileBtn.addEventListener('click', ()=>openEditModal());
+    cancelProfileBtn.addEventListener('click', ()=>closeEditModal());
+
+    editPhoto.addEventListener('change', (e) => {
+      const f = e.target.files[0];
+      if (f) {
+        LOCAL.photoFile = f;
+        // show preview
+        const url = URL.createObjectURL(f);
+        avatarSmall.querySelector('img').src = url;
+        avatarLarge.src = url;
+        sidebarAvatar.src = url;
       }
     });
 
-    logoutBtn.addEventListener('click', doLogout);
-    logoutTop.addEventListener('click', doLogout);
+    // Add appointment
+    document.getElementById('addApptBtn').addEventListener('click', () => {
+      const date = document.getElementById('apptDate').value;
+      const time = document.getElementById('apptTime').value;
+      if (!date || !time) { alert('Choose date and time'); return; }
+      const id = Date.now().toString();
+      LOCAL.appointments.unshift({ id, date, time });
+      renderAppointments();
+    });
 
-    function doLogout(){
-      signOut(auth).then(() => {
-        window.location.href = "caregiver.login.html";
-      }).catch(e => alert(e.message));
+    // Add notification
+    document.getElementById('addNotifBtn').addEventListener('click', () => {
+      const text = document.getElementById('notifText').value.trim();
+      if (!text) return;
+      const id = Date.now().toString();
+      LOCAL.notifications.unshift({ id, text, read:false });
+      document.getElementById('notifText').value = '';
+      renderNotifications();
+    });
+
+    // Mark patient completed (local remove)
+    function markPatientCompleted(id){
+      LOCAL.patients = LOCAL.patients.filter(p => p.id !== id);
+      renderPatients();
     }
 
-    onAuthStateChanged(auth, (user) => {
-      if(user){
-        const name = user.displayName || "Caregiver";
-        const email = user.email;
-        const photo = user.photoURL || "https://via.placeholder.com/80?text=G";
-        const address = "Kota, Rajasthan";
+    // Mark notification read or delete
+    function toggleNotificationRead(id){
+      LOCAL.notifications = LOCAL.notifications.map(n => n.id === id ? {...n, read: !n.read} : n );
+      renderNotifications();
+    }
+    function deleteNotification(id){
+      LOCAL.notifications = LOCAL.notifications.filter(n => n.id !== id);
+      renderNotifications();
+    }
 
-        document.getElementById('welcomeName').textContent = name;
-        document.getElementById('profileName').textContent = name.split(" ")[0];
-        document.getElementById('ddName').textContent = name;
-        document.getElementById('ddEmail').textContent = email;
-        document.getElementById('ddAddress').textContent = address;
-        document.getElementById('sidebarName').textContent = name;
-        document.getElementById('sidebarEmail').textContent = email;
-        document.getElementById('sidebarAddress').textContent = address;
+    // Renderers
+    function renderPatients(){
+      patientsListEl.innerHTML = '';
+      if(!LOCAL.patients || LOCAL.patients.length === 0){
+        patientsListEl.innerHTML = '<li style="background:transparent;color:var(--muted)">No patients assigned</li>';
+        patientsCountEl.textContent = 'Total: 0';
+        statJobs.textContent = '0';
+        return;
+      }
+      LOCAL.patients.forEach(p => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${escapeHtml(p.name)} – ${escapeHtml(p.age||'')}</span>
+          <div style="display:flex;gap:8px">
+            <button class="btn-sec" onclick="viewPatient('${p.id}')">View</button>
+            <button class="btn-primary" onclick="markPatientCompleted('${p.id}')">Completed</button>
+          </div>`;
+        patientsListEl.appendChild(li);
+      });
+      patientsCountEl.textContent = `Total: ${LOCAL.patients.length}`;
+      statJobs.textContent = `${LOCAL.patients.length}`;
+    }
 
-        document.getElementById('avatarImg').src = photo;
-        document.getElementById('avatarLarge').src = photo;
-        document.getElementById('sidebarAvatar').src = photo;
-      } else {
-        window.location.href = "caregiver.login.html";
+    function renderAppointments(){
+      appointmentsListEl.innerHTML = '';
+      if(!LOCAL.appointments || LOCAL.appointments.length === 0){
+        appointmentsListEl.innerHTML = '<li style="background:transparent;color:var(--muted)">No appointments</li>';
+        document.getElementById('nextAppointment').textContent = 'Next: —';
+        return;
+      }
+      LOCAL.appointments.forEach(a => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${escapeHtml(a.date)} — ${escapeHtml(a.time)}</span>
+          <div style="display:flex;gap:8px">
+            <button class="btn-sec" onclick="detailAppointment('${a.id}')">Details</button>
+            <button class="btn-primary" onclick="removeAppointment('${a.id}')">Remove</button>
+          </div>`;
+        appointmentsListEl.appendChild(li);
+      });
+      document.getElementById('nextAppointment').textContent = `Next: ${LOCAL.appointments[0].date} ${LOCAL.appointments[0].time}`;
+    }
+
+    function removeAppointment(id){
+      LOCAL.appointments = LOCAL.appointments.filter(a => a.id !== id);
+      renderAppointments();
+    }
+
+    function detailAppointment(id){
+      const a = LOCAL.appointments.find(x=>x.id===id);
+      if(a) alert(`Appointment: ${a.date} ${a.time}`);
+    }
+
+    function renderNotifications(){
+      notificationsListEl.innerHTML = '';
+      if(!LOCAL.notifications || LOCAL.notifications.length === 0){
+        notificationsListEl.innerHTML = '<li style="background:transparent;color:var(--muted)">No notifications</li>';
+        notificationsCountEl.textContent = 'Unread: 0';
+        statAlerts.textContent = '0';
+        return;
+      }
+      LOCAL.notifications.forEach(n => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span style="${n.read ? 'opacity:0.7;text-decoration:line-through':''}">${escapeHtml(n.text)}</span>
+          <div style="display:flex;gap:8px">
+            <button class="btn-sec" onclick="toggleNotificationRead('${n.id}')">${n.read ? 'Unread' : 'Read'}</button>
+            <button class="btn-primary" onclick="deleteNotification('${n.id}')">Delete</button>
+          </div>`;
+        notificationsListEl.appendChild(li);
+      });
+      const unread = LOCAL.notifications.filter(x=>!x.read).length;
+      notificationsCountEl.textContent = `Unread: ${unread}`;
+      statAlerts.textContent = `${unread}`;
+    }
+
+    // Save All Changes handler
+    saveProfileBtn.addEventListener('click', saveAllChanges);
+    saveAllBtn.addEventListener('click', saveAllChanges);
+
+    async function saveAllChanges(){
+      saveAllBtn.disabled = true;
+      saveProfileBtn.disabled = true;
+      modalMsg.textContent = 'Saving...';
+      try {
+        const uid = LOCAL.uid;
+        if(!uid) throw new Error('No authenticated user.');
+
+        // upload photo if new file selected
+        if(LOCAL.photoFile){
+          const path = `caregivers/${uid}/profile.jpg`;
+          const sref = storageRef(storage, path);
+          await uploadBytes(sref, LOCAL.photoFile);
+          const url = await getDownloadURL(sref);
+          LOCAL.photoURL = url;
+        }
+
+        // Prepare doc payload
+        const payload = {
+          name: LOCAL.name,
+          address: LOCAL.address,
+          photo: LOCAL.photoURL,
+          patients: LOCAL.patients,
+          appointments: LOCAL.appointments,
+          notifications: LOCAL.notifications,
+          earnings: LOCAL.earnings || 0,
+          rating: LOCAL.rating || 0,
+          updatedAt: new Date()
+        };
+
+        // Write to Firestore (set document)
+        const caregiverDocRef = doc(db, 'caregivers', uid);
+        await setDoc(caregiverDocRef, payload, { merge: true });
+
+        // success UI
+        modalMsg.textContent = 'Saved ✓';
+        saveSuccess.classList.add('show');
+        setTimeout(()=>saveSuccess.classList.remove('show'), 2400);
+        closeEditModal();
+      } catch (err) {
+        console.error(err);
+        modalMsg.textContent = 'Save failed: ' + err.message;
+        alert('Save error: ' + err.message);
+      } finally {
+        saveAllBtn.disabled = false;
+        saveProfileBtn.disabled = false;
+        setTimeout(()=>{ modalMsg.textContent = ''; }, 2000);
+      }
+    }
+
+    function openEditModal(){
+      editModal.classList.add('show');
+      editModal.setAttribute('aria-hidden','false');
+      // populate inputs from LOCAL
+      editName.value = LOCAL.name || '';
+      editAddress.value = LOCAL.address || '';
+      modalMsg.textContent = '';
+    }
+    function closeEditModal(){
+      editModal.classList.remove('show');
+      editModal.setAttribute('aria-hidden','true');
+      // reset preview if no photoFile
+      if(!LOCAL.photoFile){
+        avatarSmall.querySelector('img').src = LOCAL.photoURL || 'https://via.placeholder.com/80?text=G';
+        avatarLarge.src = LOCAL.photoURL || 'https://via.placeholder.com/120?text=G';
+        sidebarAvatar.src = LOCAL.photoURL || 'https://via.placeholder.com/120?text=G';
+      }
+    }
+
+    // helper: simple html escape
+    function escapeHtml(str){
+      if(!str) return '';
+      return String(str).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; });
+    }
+
+    // lightweight viewPatient function used by buttons
+    window.viewPatient = (id) => {
+      const p = LOCAL.patients.find(x=>x.id===id);
+      if(p) alert(`Patient: ${p.name}\nAge: ${p.age || '—'}\nNotes: ${p.notes || '—'}`);
+    };
+
+    // Expose functions used inline
+    window.markPatientCompleted = markPatientCompleted;
+    window.toggleNotificationRead = toggleNotificationRead;
+    window.deleteNotification = deleteNotification;
+    window.removeAppointment = removeAppointment;
+    window.detailAppointment = detailAppointment;
+
+    // Auth & data load
+    onAuthStateChanged(auth, async (user) => {
+      if(!user) { location.href = 'caregiver.login.html'; return; }
+      LOCAL.uid = user.uid;
+
+      // load caregiver doc
+      try {
+        const docRef = doc(db, 'caregivers', user.uid);
+        const snap = await getDoc(docRef);
+        if(snap.exists()){
+          const data = snap.data();
+          // populate local
+          LOCAL.name = data.name || user.displayName || 'Caregiver';
+          LOCAL.address = data.address || '';
+          LOCAL.photoURL = data.photo || user.photoURL || 'https://via.placeholder.com/120?text=G';
+          LOCAL.patients = (data.patients || []).map(p => ({ id: p.id || ('p_'+Date.now()+Math.random()), ...p }));
+          LOCAL.appointments = (data.appointments || []).map(a => ({ id: a.id || ('a_'+Date.now()+Math.random()), ...a }));
+          LOCAL.notifications = (data.notifications || []).map(n => ({ id: n.id || ('n_'+Date.now()+Math.random()), ...n }));
+          LOCAL.earnings = data.earnings || 0;
+          LOCAL.rating = data.rating || 0;
+        } else {
+          // new profile defaults
+          LOCAL.name = user.displayName || 'Caregiver';
+          LOCAL.address = '';
+          LOCAL.photoURL = user.photoURL || 'https://via.placeholder.com/120?text=G';
+          LOCAL.patients = [];
+          LOCAL.appointments = [];
+          LOCAL.notifications = [];
+          LOCAL.earnings = 0;
+          LOCAL.rating = 0;
+        }
+
+        // Update UI with LOCAL
+        profileName.textContent = LOCAL.name.split(' ')[0] || LOCAL.name;
+        ddName.textContent = LOCAL.name;
+        ddEmail.textContent = user.email || '';
+        ddAddress.textContent = LOCAL.address || 'Kota, Rajasthan';
+        sidebarName.textContent = LOCAL.name;
+        sidebarEmail.textContent = user.email || '';
+        sidebarAddress.textContent = LOCAL.address || 'Kota, Rajasthan';
+        welcomeName.textContent = LOCAL.name;
+        avatarSmall.querySelector('img').src = LOCAL.photoURL;
+        avatarLarge.src = LOCAL.photoURL;
+        sidebarAvatar.src = LOCAL.photoURL;
+
+        // set stat and cards
+        earningsValueEl.textContent = LOCAL.earnings;
+        ratingsValueEl.textContent = LOCAL.rating;
+        statMonth.textContent = LOCAL.earnings;
+        statRating.textContent = LOCAL.rating;
+        statJobs.textContent = LOCAL.patients.length;
+        statAlerts.textContent = LOCAL.notifications.filter(n=>!n.read).length;
+
+        // render lists
+        renderPatients();
+        renderAppointments();
+        renderNotifications();
+      } catch (err) {
+        console.error('Load error', err);
+        alert('Failed to load profile data: ' + err.message);
       }
     });
+
   </script>
 </body>
 </html>
