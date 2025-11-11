@@ -3,100 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GeevaCare | Home</title>
+  <title>GeevaCare – Compassionate Care You Can Trust</title>
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
+    /* Floating Lotus Background Animation */
+    .lotus-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://pngimg.com/uploads/lotus/lotus_PNG8.png') repeat;
+      background-size: 220px;
+      opacity: 0.12;
+      animation: float 25s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0% { background-position: 0 0; }
+      100% { background-position: 100% 100%; }
+    }
+
+    /* Ambient water ripple effect */
     body {
-      scroll-behavior: smooth;
-      background: linear-gradient(-45deg, #f0fdfa, #ccfbf1, #99f6e4, #5eead4);
-      background-size: 400% 400%;
-      animation: gradientMove 18s ease infinite;
+      background: linear-gradient(to bottom right, #f0fafc, #fff8f0);
+      overflow-x: hidden;
     }
 
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    button {
+      transition: all 0.3s ease-in-out;
     }
 
-    .fade-in { opacity: 0; transform: translateY(30px); transition: all 1.2s ease; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    .btn {
-      background-color: #0d9488;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-    }
-    .btn:hover {
-      background-color: #14b8a6;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(13,148,136,0.4);
-    }
-
-    .hero-img {
-      border-radius: 1.5rem;
-      box-shadow: 0 15px 35px rgba(13,148,136,0.3);
-      transition: transform 0.4s ease;
-    }
-
-    .hero-img:hover {
-      transform: scale(1.05);
+    button:hover {
+      box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
     }
   </style>
 </head>
 
-<body class="text-gray-800">
-  <!-- Navbar -->
-  <nav class="flex justify-between items-center py-4 px-8 bg-white shadow-md fixed top-0 left-0 w-full z-50">
-    <div class="text-2xl font-bold text-teal-700">GeevaCare</div>
-    <ul class="flex space-x-6 text-gray-700 font-medium">
-      <li><a href="index.html" class="text-teal-600 font-semibold">Home</a></li>
-      <li><a href="about.html" class="hover:text-teal-600">About</a></li>
-      <li><a href="service.html" class="hover:text-teal-600">Services</a></li>
-      <li><a href="contact.html" class="hover:text-teal-600">Contact</a></li>
-    </ul>
-  </nav>
+<body class="font-sans relative text-gray-800">
+  <div class="lotus-bg"></div>
+
+  <!-- Navigation -->
+  <header class="absolute top-0 left-0 w-full z-20">
+    <nav class="flex justify-start items-center p-6 md:p-8">
+      <div class="flex items-center space-x-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/615/615075.png" alt="GeevaCare Logo" class="w-10 h-10" />
+        <h1 class="text-xl font-bold text-slate-800">GeevaCare</h1>
+      </div>
+    </nav>
+  </header>
 
   <!-- Hero Section -->
-  <section class="pt-32 pb-20 px-6 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-    <div class="fade-in">
-      <h1 class="text-5xl font-bold text-teal-700 mb-4">Compassionate Care at Your Doorstep 💚</h1>
-      <p class="text-gray-700 mb-6 text-lg">GeevaCare provides professional medical assistance and caregiving services from trusted healthcare providers. Your wellness is our priority.</p>
-      <a href="service.html" class="btn">Explore Services</a>
+  <main id="home" class="relative z-10 flex flex-col items-center justify-center min-h-screen text-center px-6 py-24">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-slate-800 mb-4">
+      “The Care Belongs To You.”
+    </h2>
+    <p class="text-lg md:text-xl text-slate-600 max-w-2xl mb-8">
+      Providing reliable, compassionate, and trustworthy care for your loved ones —
+      and empowering caregivers with meaningful opportunities.
+    </p>
+
+    <div class="flex space-x-4 mb-12">
+      <button class="border-2 border-teal-600 text-teal-700 px-6 py-2 rounded-full font-semibold hover:bg-teal-600 hover:text-white">
+        Contact Us
+      </button>
+      <button class="border-2 border-orange-500 text-orange-600 px-6 py-2 rounded-full font-semibold hover:bg-orange-500 hover:text-white">
+        Services
+      </button>
     </div>
 
-    <div class="fade-in flex flex-col gap-4">
-      <img src="nurse.jpg" alt="Nurse assisting elderly" class="hero-img">
-      <img src="nurse2.jpg" alt="Smiling nurse" class="hero-img w-3/4 self-end">
+    <!-- Hero Image -->
+    <div class="img-card rounded-2xl overflow-hidden w-full md:w-3/4 shadow-lg">
+    <!-- Nurse assisting elderly person -->
+<img src="nurse.jpg" alt="Nurse assisting an elderly person to stand" 
+     class="rounded-2xl shadow-lg w-full h-auto object-cover transition-transform duration-700 hover:scale-105 animate-fadeIn">
+
+<!-- Nurse smiling -->
+<img src="nurse2.jpg" alt="Nurse smiling" 
+     class="rounded-2xl shadow-lg w-full h-auto object-cover transition-transform duration-700 hover:scale-105 animate-fadeIn">
+        loading="lazy"
+        style="background-color:#fff;
+      />
+    </div>
+  </main>
+
+  <!-- About Section -->
+  <section id="about" class="relative z-10 py-20 bg-white/60 backdrop-blur-lg px-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+      <div class="flex-1">
+        <h3 class="text-3xl font-bold text-teal-700 mb-4">Our Mission</h3>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          At GeevaCare, we believe that every patient deserves respect, comfort,
+          and compassionate attention. Our caregivers are trained to offer
+          personalized home-based care that promotes healing and peace of mind.
+        </p>
+      </div>
+      <div class="flex-1">
+        <img
+          src="https://images.unsplash.com/photo-1579677030663-9f84e50843fe?auto=format&fit=crop&w=1400&q=80"
+          alt="Smiling nurse with patient"
+          loading="lazy"
+          class="rounded-2xl shadow-md w-full object-cover"
+        />
+      </div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="py-20 px-6 lg:px-16 bg-white/80">
-    <div class="max-w-4xl mx-auto text-center fade-in">
-      <h2 class="text-4xl font-semibold text-teal-700 mb-4">Why Choose GeevaCare?</h2>
-      <p class="text-gray-700 text-lg">We’re dedicated to delivering personalized and compassionate care with integrity. Our professional nurses and caregivers are committed to helping patients recover and thrive in the comfort of their homes.</p>
+  <!-- Services Section -->
+  <section id="services" class="relative z-10 py-20 bg-gradient-to-r from-orange-50 to-teal-50 px-6">
+    <div class="max-w-6xl mx-auto text-center mb-12">
+      <h3 class="text-3xl font-bold text-slate-800 mb-4">Our Services</h3>
+      <p class="text-gray-600">
+        From elderly care to post-surgery recovery — our caregivers bring warmth and professionalism to every home.
+      </p>
+    </div>
+
+    <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+      <img
+        src="https://images.unsplash.com/photo-1580202373730-287e462d0c17?auto=format&fit=crop&w=1400&q=80"
+        alt="Healthcare worker caring for patient"
+        loading="lazy"
+        class="rounded-2xl shadow-md w-full object-cover"
+      />
+      <ul class="space-y-4 text-left text-gray-700">
+        <li>🩺 In-home patient care and daily assistance</li>
+        <li>👵 Elder companionship and wellness monitoring</li>
+        <li>💊 Post-surgery care & mobility support</li>
+        <li>🤝 Opportunities for nursing students & caregivers</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Compassion / Testimonials Section -->
+  <section id="care" class="relative z-10 py-20 bg-white px-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+      <div class="flex-1">
+        <img
+          src="https://images.unsplash.com/photo-1580281657521-4a5c1c8f7e1c?auto=format&fit=crop&w=1400&q=80"
+          alt="Nurse with patient indoors"
+          loading="lazy"
+          class="rounded-2xl shadow-md w-full object-cover"
+        />
+      </div>
+      <div class="flex-1">
+        <h3 class="text-3xl font-bold text-orange-600 mb-4">Care That Feels Like Family</h3>
+        <p class="text-lg text-gray-700 leading-relaxed">
+          Our caregivers bring not just medical expertise but genuine empathy.  
+          Every smile, every act of kindness, every moment of care — that’s what makes GeevaCare special.
+        </p>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-teal-700 text-white py-8 text-center">
-    <p>📞 6377314402 | ✉️ geevacare@gmail.com</p>
-    <p class="mt-4 text-sm opacity-80">© 2025 GeevaCare — Care You Can Trust 💚</p>
+  <footer class="bg-teal-700 text-white text-center py-8">
+    <p>© 2025 GeevaCare. All Rights Reserved.</p>
   </footer>
-
-  <!-- Animation Script -->
-  <script>
-    const faders = document.querySelectorAll('.fade-in');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.3 });
-    faders.forEach(el => observer.observe(el));
-  </script>
 </body>
 </html>
