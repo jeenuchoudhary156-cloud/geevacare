@@ -1,135 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Caregiver Dashboard | GeevaCare</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f6f9;
-      margin: 0;
-      padding: 0;
+    :root{
+      --mint-100: #f0f9f4;
+      --mint-200: #d8f3dd;
+      --mint-500: #63d471;
+      --mint-600: #47bf56;
+      --card-bg: #ffffff;
+      --muted: #6b7280;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(180deg, var(--mint-100), #f6fcf6);
+      color:#0f172a;
     }
 
-    header {
-      background-color: #007bff;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      font-size: 1.5em;
-      font-weight: bold;
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:10px 20px;
+      background:linear-gradient(90deg, rgba(155,231,166,0.95), rgba(99,212,113,0.95));
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .brand .logo-placeholder{
+      width:44px;height:44px;border-radius:10px;background:#fff;
+      display:flex;align-items:center;justify-content:center;
+      font-weight:700;color:var(--mint-600);
+    }
+    .brand h1{font-size:18px;color:#06381f;font-weight:700;}
+
+    .header-actions{display:flex;align-items:center;gap:15px;}
+    .btn-logout{
+      background:#fff;border:none;padding:8px 14px;border-radius:20px;
+      font-weight:600;color:#06381f;cursor:pointer;
+      transition:0.2s;box-shadow:0 2px 5px rgba(0,0,0,0.1);
+    }
+    .btn-logout:hover{background:var(--mint-200);}
+
+    .profile{position:relative;}
+    .profile-toggle{
+      display:flex;align-items:center;gap:8px;cursor:pointer;
+      background:#fff;padding:6px 10px;border-radius:20px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    }
+    .avatar{width:40px;height:40px;border-radius:50%;overflow:hidden;}
+    .avatar img{width:100%;height:100%;object-fit:cover;}
+    .profile-name{font-weight:600;font-size:14px;color:#06381f;}
+
+    .dropdown{
+      position:absolute;top:50px;right:0;width:260px;
+      background:#fff;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,0.1);
+      display:none;padding:15px;
+    }
+    .dropdown.show{display:block;}
+    .dropdown .info{display:flex;gap:10px;align-items:center;}
+    .dropdown .info .meta{font-size:13px;}
+    .dropdown .actions{margin-top:10px;display:flex;gap:8px;}
+    .btn-primary{
+      background:var(--mint-500);color:white;padding:8px 10px;
+      border:none;border-radius:8px;cursor:pointer;font-weight:600;
+    }
+    .btn-secondary{
+      background:#f3faf4;border:1px solid rgba(0,0,0,0.05);
+      color:#06421f;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:600;
     }
 
-    .dashboard {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 20px;
+    main{max-width:1100px;margin:30px auto;padding:0 18px;}
+    .grid{display:grid;grid-template-columns:1fr 340px;gap:20px;}
+    .card{
+      background:#fff;padding:16px;border-radius:14px;
+      border:1px solid rgba(0,0,0,0.05);box-shadow:0 8px 20px rgba(0,0,0,0.05);
     }
+    .card h3{font-size:16px;margin-bottom:8px;}
+    .card p{font-size:13px;color:var(--muted);}
+    .list{margin-top:10px;list-style:none;display:flex;flex-direction:column;gap:8px;}
+    .list li{display:flex;justify-content:space-between;align-items:center;
+      background:var(--mint-100);padding:8px 10px;border-radius:8px;font-size:14px;}
+    .card-footer{margin-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);}
 
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+    .summary{
+      background:#fff;padding:14px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.05);
     }
+    .summary h4{margin-bottom:8px;}
+    .summary .meta{color:var(--muted);font-size:13px;}
+    .stat{display:flex;justify-content:space-between;align-items:center;padding:12px;margin-top:10px;border-radius:10px;background:#fff;box-shadow:0 4px 10px rgba(0,0,0,0.05);}
+    .value{font-weight:700;font-size:18px;}
 
-    .card {
-      background-color: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    .card h3 {
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    .value {
-      font-size: 1.8em;
-      color: #007bff;
-      font-weight: bold;
-    }
-
-    #logoutBtn {
-      background-color: #dc3545;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 30px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    #logoutBtn:hover {
-      background-color: #b02a37;
-    }
-
-    #userEmail {
-      text-align: center;
-      margin-top: 20px;
-      font-size: 1.1em;
-      color: #444;
+    @media(max-width:960px){
+      .grid{grid-template-columns:1fr;}
+      .profile-name{display:none;}
     }
   </style>
 </head>
 <body>
-  <div class="dashboard" style="display:none; text-align:center; margin-top:100px;">
-    <h2 id="userEmail"></h2>
-    <button id="logoutBtn">Logout</button>
-  </div>
 
-  <div id="loading" style="text-align:center; margin-top:100px;">
-    <h3>Loading dashboard...</h3>
-  </div>
+  <header>
+    <div class="brand">
+      <div class="logo-placeholder">GC</div>
+      <h1>GeevaCare</h1>
+    </div>
 
- <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-  import { 
-    getAuth, 
-    onAuthStateChanged, 
-    signOut 
-  } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    <div class="header-actions">
+      <button class="btn-logout" id="logoutTop">Logout</button>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCEeDroQiN7cm3kTJmxayIszxFgY8eVLhA",
-  authDomain: "geevacare-portal.firebaseapp.com",
-  projectId: "geevacare-portal",
-  storageBucket: "geevacare-portal.firebasestorage.app",
-  messagingSenderId: "124439449847",
-  appId: "1:124439449847:web:cee18563ce832289ca03f2",
-  measurementId: "G-50SM8Z1BPJ"
-};
+      <div class="profile" id="profileMenu">
+        <div class="profile-toggle" id="profileToggle">
+          <div class="avatar"><img id="avatarImg" src="" alt="avatar"></div>
+          <div class="profile-name" id="profileName">Caregiver</div>
+        </div>
+        <div class="dropdown" id="profileDropdown">
+          <div class="info">
+            <div class="avatar" style="width:60px;height:60px;"><img id="avatarLarge" src="" alt="avatar"></div>
+            <div class="meta">
+              <div id="ddName" style="font-weight:600;">Name</div>
+              <div id="ddEmail" style="font-size:12px;color:var(--muted);">email@example.com</div>
+              <div id="ddAddress" style="font-size:12px;color:var(--muted);margin-top:4px;">Kota, Rajasthan</div>
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn-primary" id="viewProfileBtn">View Profile</button>
+            <button class="btn-secondary" id="logoutBtn">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+  <main>
+    <div class="grid">
+      <div class="left">
+        <section class="card">
+          <h2>Welcome back, <span id="welcomeName">Caregiver</span></h2>
+          <p>Your daily summary and upcoming updates are here.</p>
+        </section>
 
-  // 👇 Check if user is logged in
-  onAuthStateChanged(auth, (user) => {
-    const dashboard = document.querySelector(".dashboard");
-    const userEmailDiv = document.getElementById("userEmail");
-    const loading = document.getElementById("loading");
+        <div class="card">
+          <h3>Assigned Patients</h3>
+          <p>Patients assigned to you</p>
+          <ul class="list">
+            <li><span>Mrs. Anita – 68</span><button class="btn-secondary">View</button></li>
+            <li><span>Mr. Sunil – 74</span><button class="btn-secondary">View</button></li>
+          </ul>
+          <div class="card-footer">
+            <span>Total: 2</span><button class="btn-primary">View All</button>
+          </div>
+        </div>
 
-    if (user) {
-      userEmailDiv.textContent = `Welcome, ${user.email}`;
-      dashboard.style.display = "block";
-      loading.style.display = "none";
-    } else {
-      window.location.href = "caregiver.login.html";
-    }
-  });
+        <div class="card">
+          <h3>Upcoming Appointments</h3>
+          <p>Next patient visits</p>
+          <ul class="list">
+            <li><span>10 Nov — 11:00 AM</span><button class="btn-secondary">Details</button></li>
+            <li><span>12 Nov — 03:00 PM</span><button class="btn-secondary">Details</button></li>
+          </ul>
+          <div class="card-footer">
+            <span>Next: 10 Nov — 11:00 AM</span><button class="btn-primary">Calendar</button>
+          </div>
+        </div>
 
-  // 👇 Logout button
-  document.getElementById("logoutBtn").addEventListener("click", () => {
-    signOut(auth).then(() => {
-      alert("You have been logged out.");
-      window.location.href = "caregiver.login.html";
+        <div class="card">
+          <h3>Notifications</h3>
+          <p>Alerts & messages</p>
+          <ul class="list">
+            <li><span>New sample collection request</span><button class="btn-secondary">Open</button></li>
+            <li><span>Shift schedule updated</span><button class="btn-secondary">Open</button></li>
+          </ul>
+          <div class="card-footer">
+            <span>Unread: 2</span><button class="btn-primary">View All</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Earnings</h3>
+          <p>This month’s earnings</p>
+          <div style="font-size:22px;font-weight:700;margin:8px 0;">₹ 12,500</div>
+          <div class="card-footer">
+            <span>Paid till 5 Nov</span><button class="btn-primary">Details</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Ratings</h3>
+          <p>Feedback from families</p>
+          <div style="font-size:22px;font-weight:700;margin:8px 0;">4.8 / 5 ⭐</div>
+          <div class="card-footer">
+            <span>54 reviews</span><button class="btn-primary">View</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="summary">
+          <h4>Profile Summary</h4>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div class="avatar" style="width:70px;height:70px;"><img id="sidebarAvatar" src="" alt=""></div>
+            <div>
+              <div id="sidebarName" style="font-weight:600;">Name</div>
+              <div id="sidebarEmail" class="meta">email@example.com</div>
+              <div id="sidebarAddress" class="meta">Kota, Rajasthan</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;display:flex;gap:8px;">
+            <button class="btn-primary" style="flex:1;">Edit Profile</button>
+            <button class="btn-secondary" style="flex:1;">My Schedule</button>
+          </div>
+        </div>
+
+        <div class="stat">
+          <div><div style="color:var(--muted);font-size:13px;">This month</div><div class="value">₹ 12,500</div></div>
+          <div style="text-align:right;"><div style="color:var(--muted);font-size:13px;">Completed Jobs</div><div style="font-weight:700;">28</div></div>
+        </div>
+
+        <div class="stat">
+          <div><div style="color:var(--muted);font-size:13px;">Rating</div><div class="value">4.8 ⭐</div></div>
+          <div style="text-align:right;"><div style="color:var(--muted);font-size:13px;">Alerts</div><div style="font-weight:700;">2</div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCEeDroQiN7cm3kTJmxayIszxFgY8eVLhA",
+      authDomain: "geevacare-portal.firebaseapp.com",
+      projectId: "geevacare-portal",
+      storageBucket: "geevacare-portal.firebasestorage.app",
+      messagingSenderId: "124439449847",
+      appId: "1:124439449847:web:cee18563ce832289ca03f2",
+      measurementId: "G-50SM8Z1BPJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const profileToggle = document.getElementById('profileToggle');
+    const profileDropdown = document.getElementById('profileDropdown');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const logoutTop = document.getElementById('logoutTop');
+
+    // toggle dropdown
+    profileToggle.addEventListener('click', () => {
+      profileDropdown.classList.toggle('show');
     });
-  });
-</script>
+
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('profileMenu').contains(e.target)) {
+        profileDropdown.classList.remove('show');
+      }
+    });
+
+    logoutBtn.addEventListener('click', doLogout);
+    logoutTop.addEventListener('click', doLogout);
+
+    function doLogout(){
+      signOut(auth).then(() => {
+        window.location.href = "caregiver.login.html";
+      }).catch(e => alert(e.message));
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if(user){
+        const name = user.displayName || "Caregiver";
+        const email = user.email;
+        const photo = user.photoURL || "https://via.placeholder.com/80?text=G";
+        const address = "Kota, Rajasthan";
+
+        document.getElementById('welcomeName').textContent = name;
+        document.getElementById('profileName').textContent = name.split(" ")[0];
+        document.getElementById('ddName').textContent = name;
+        document.getElementById('ddEmail').textContent = email;
+        document.getElementById('ddAddress').textContent = address;
+        document.getElementById('sidebarName').textContent = name;
+        document.getElementById('sidebarEmail').textContent = email;
+        document.getElementById('sidebarAddress').textContent = address;
+
+        document.getElementById('avatarImg').src = photo;
+        document.getElementById('avatarLarge').src = photo;
+        document.getElementById('sidebarAvatar').src = photo;
+      } else {
+        window.location.href = "caregiver.login.html";
+      }
+    });
+  </script>
 </body>
 </html>
