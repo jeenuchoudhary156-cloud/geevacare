@@ -186,50 +186,50 @@
 
   <!-- Firebase scripts and app logic -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-    import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-storage.js";
 
-    // ---------- your firebase config ----------
-    const firebaseConfig = {
-      apiKey: "AIzaSyCEeDroQiN7cm3kTJmxayIszxFgY8eVLhA",
-      authDomain: "geevacare-portal.firebaseapp.com",
-      projectId: "geevacare-portal",
-      storageBucket: "geevacare-portal.firebasestorage.app",
-      messagingSenderId: "124439449847",
-      appId: "1:124439449847:web:cee18563ce832289ca03f2",
-      measurementId: "G-50SM8Z1BPJ"
-    };
+  // ✅ Correct Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCEeDroQiN7cm3kTJmxayIszxFgY8eVLhA",
+    authDomain: "geevacare-portal.firebaseapp.com",
+    projectId: "geevacare-portal",
+    storageBucket: "geevacare-portal.appspot.com", // ✅ FIXED
+    messagingSenderId: "124439449847",
+    appId: "1:124439449847:web:cee18563ce832289ca03f2",
+    measurementId: "G-50SM8Z1BPJ"
+  };
 
-    // init
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
+  // ✅ Initialize Firebase services
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const storage = getStorage(app);
 
-    // UI references
-    const profileToggle = document.getElementById('profileToggle');
-    const profileDropdown = document.getElementById('profileDropdown');
-    const profileMenu = document.getElementById('profileMenu');
-    const openEditProfile = document.getElementById('openEditProfile');
-    const editProfileBtn = document.getElementById('editProfileBtn');
-    const editModal = document.getElementById('editModal');
-    const cancelProfileBtn = document.getElementById('cancelProfileBtn');
-    const saveProfileBtn = document.getElementById('saveProfileBtn');
-    const saveAllBtn = document.getElementById('saveAllBtn');
+  // UI references
+  const profileToggle = document.getElementById('profileToggle');
+  const profileDropdown = document.getElementById('profileDropdown');
+  const profileMenu = document.getElementById('profileMenu');
+  const openEditProfile = document.getElementById('openEditProfile');
+  const editProfileBtn = document.getElementById('editProfileBtn');
+  const editModal = document.getElementById('editModal');
+  const cancelProfileBtn = document.getElementById('cancelProfileBtn');
+  const saveProfileBtn = document.getElementById('saveProfileBtn');
+  const saveAllBtn = document.getElementById('saveAllBtn');
 
-    const avatarSmall = document.getElementById('avatarSmall');
-    const avatarLarge = document.getElementById('avatarLarge');
-    const sidebarAvatar = document.getElementById('sidebarAvatar');
-    const profileName = document.getElementById('profileName');
-    const ddName = document.getElementById('ddName');
-    const ddEmail = document.getElementById('ddEmail');
-    const ddAddress = document.getElementById('ddAddress');
-    const sidebarName = document.getElementById('sidebarName');
-    const sidebarEmail = document.getElementById('sidebarEmail');
-    const sidebarAddress = document.getElementById('sidebarAddress');
-    const welcomeName = document.getElementById('welcomeName');
+  const avatarSmall = document.getElementById('avatarSmall');
+  const avatarLarge = document.getElementById('avatarLarge');
+  const sidebarAvatar = document.getElementById('sidebarAvatar');
+  const profileName = document.getElementById('profileName');
+  const ddName = document.getElementById('ddName');
+  const ddEmail = document.getElementById('ddEmail');
+  const ddAddress = document.getElementById('ddAddress');
+  const sidebarName = document.getElementById('sidebarName');
+  const sidebarEmail = document.getElementById('sidebarEmail');
+  const sidebarAddress = document.getElementById('sidebarAddress');
+  const welcomeName = document.getElementById('welcomeName');
 
     const patientsListEl = document.getElementById('patientsList');
     const patientsCountEl = document.getElementById('patientsCount');
@@ -412,13 +412,14 @@
       saveProfileBtn.disabled = true;
       modalMsg.textContent = 'Saving...';
       try {
-        const uid = LOCAL.uid;
-        if(!uid) throw new Error('No authenticated user.');
+      const user = auth.currentUser;
+       if (!user) throw new Error('Not logged in');
+       const uid = user.uid;
 
         // upload photo if new file selected
         if(LOCAL.photoFile){
           const path = `caregivers/${uid}/profile.jpg`;
-          const sref = storageRef(storage, path);
+          const sref = ref(storage, path);
           await uploadBytes(sref, LOCAL.photoFile);
           const url = await getDownloadURL(sref);
           LOCAL.photoURL = url;
