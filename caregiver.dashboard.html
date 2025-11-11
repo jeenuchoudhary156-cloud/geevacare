@@ -437,36 +437,6 @@
     LOCAL.name = fullName;
     LOCAL.address = address;
 
-    // Prepare doc payload (merge)
-    const payload = {
-      name: LOCAL.name,
-      address: LOCAL.address,
-      photo: photoURL || null,
-      patients: LOCAL.patients || [],
-      appointments: LOCAL.appointments || [],
-      notifications: LOCAL.notifications || [],
-      earnings: LOCAL.earnings || 0,
-      rating: LOCAL.rating || 0,
-      updatedAt: new Date()
-    };
-
-    // Write to Firestore
-    const caregiverDocRef = doc(db, "caregivers", uid);
-    await setDoc(caregiverDocRef, payload, { merge: true });
-
-    // Update Firebase Auth profile (if available)
-    try {
-      if (updateProfile) {
-        await updateProfile(user, {
-          displayName: LOCAL.name,
-          photoURL: photoURL || user.photoURL || null
-        });
-      }
-    } catch (upErr) {
-      console.warn("Could not update auth profile:", upErr.message);
-      // not fatal — continue
-    }
-
     // success UI update
     modalMsg.textContent = "Saved ✓";
     saveSuccess.classList.add("show");
@@ -491,7 +461,8 @@
     saveAllBtn.disabled = false;
     saveProfileBtn.disabled = false;
     setTimeout(() => { modalMsg.textContent = ""; }, 1500);
-  }
+      }
+    }
     function openEditModal(){
       editModal.classList.add('show');
       editModal.setAttribute('aria-hidden','false');
